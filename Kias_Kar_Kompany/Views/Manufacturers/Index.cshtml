@@ -14,10 +14,12 @@
         <tr>
             
             <th>
-                @Html.DisplayNameFor(model => model.Manufacturer_Name)
+                @* @Html.DisplayNameFor(model => model.Manufacturer_Name) *@
+                Manufacturer Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Manufacturer_Country)
+                @* @Html.DisplayNameFor(model => model.Manufacturer_Country) *@
+                Manufacturer Country
             </th>
                    
         </tr>
@@ -34,7 +36,9 @@
                     @Html.DisplayFor(modelItem => item.Manufacturer_Country)
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    <a asp-action="Edit" asp-route-id="@item.ManId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ManId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ManId">Delete</a>
                 </td>
             </tr>
         }

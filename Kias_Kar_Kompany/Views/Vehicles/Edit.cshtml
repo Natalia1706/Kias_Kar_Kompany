@@ -1,17 +1,18 @@
 ﻿@model Kias_Kar_Kompany.Models.Vehicle
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
 }
 
-<h1>Create</h1>
+<h1>Edit</h1>
 
-<h4>Vehical</h4>
+<h4>Vehicle</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="VehicleId" />
             <div class="form-group">
                 <label asp-for="VehicleName" class="control-label"></label>
                 <input asp-for="VehicleName" class="form-control" />
@@ -38,15 +39,15 @@
                 <span asp-validation-for="VehicleImageURL" class="text-danger"></span>
             </div>
            <div class="form-group">
-                <label asp-for="ownerId" class="control-label"></label>
-                <select asp-for="ownerId" class="form-control" asp-items="ViewBag.ownerId"></select>
-            </div>
+              <label asp-for="ownerId" class="control-label"></label>
+              <select asp-for="ownerId" class="form-control" asp-items="ViewBag.ownerName"></select>
+          </div>
+          <div class="form-group">
+             <label asp-for="ManId" class="control-label"></label>
+             <select asp-for="ManId" class="form-control" asp-items="ViewBag.Manufacturer_Name"></select>
+          </div>
             <div class="form-group">
-                <label asp-for="ManId" class="control-label"></label>
-                <select asp-for="ManId" class="form-control" asp-items="ViewBag.ManId"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>

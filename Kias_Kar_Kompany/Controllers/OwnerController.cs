@@ -1,52 +1,52 @@
-﻿using Kias_Kar_Kompany.Data;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using Kias_Kar_Kompany.Data;
 using Kias_Kar_Kompany.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Runtime.InteropServices;
 
 namespace Kias_Kar_Kompany.Controllers
 {
-    public class ManufacturersController : Controller
+    public class OwnerController : Controller
     {
-
         private readonly Kias_Kar_KompanyContext _context;
 
-        public ManufacturersController(Kias_Kar_KompanyContext context)
+        public OwnerController(Kias_Kar_KompanyContext context)
         {
             _context = context;
         }
 
-        // GET: ManufacturersController
-        public async Task<ActionResult> Index()
+        // GET: OwnersController
+        public async Task<IActionResult> Index()
         {
             //var Kias_Kar_KompanyContext = _context.Vehicle.Include(e => e.Manufacturer).Include(e => e.Owner);
-            return View(await _context.Manufacturer.ToListAsync());
+            return View(await _context.Owner.ToListAsync());
         }
 
-        
-        // GET: ManufacturersController/Create
-        public ActionResult Create()
+        // GET: OwnersController/Create
+        public IActionResult Create()
         {
             return View();
         }
 
-        // POST: ManufacturersController/Create
+        // POST: OwnersController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(Manufacturer manufacturer)
+        public async Task<ActionResult> Create(Owner owner)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(manufacturer);
+                _context.Add(owner);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            
-            return View(manufacturer);
-            
+
+            return View(owner);
+
         }
 
-        // GET: ManufacturesController/Details/5
+
+        // GET: OwnersController/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -54,16 +54,17 @@ namespace Kias_Kar_Kompany.Controllers
                 return NotFound();
             }
 
-            var man = await _context.Manufacturer
-                .FirstOrDefaultAsync(m => m.ManId == id);
-            if (man == null)
+            var owner = await _context.Owner
+                .FirstOrDefaultAsync(m => m.ownerId == id);
+            if (owner == null)
             {
                 return NotFound();
             }
-            return View(man);
+            return View(owner);
         }
 
-        // GET: Manufacturer/Edit/5
+
+        // GET: Owner/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -71,22 +72,23 @@ namespace Kias_Kar_Kompany.Controllers
                 return NotFound();
             }
 
-            var gamer = await _context.Manufacturer.FindAsync(id);
-            if (gamer == null)
+            var owner = await _context.Owner.FindAsync(id);
+            if (owner == null)
             {
                 return NotFound();
             }
-            return View(gamer);
+            return View(owner);
         }
 
-        // POST: Manufacturer/Edit/5
+
+        // POST: Owner/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ManId,Manufacturer_Name,Manufacturer_Country")] Manufacturer manufacturer)
+        public async Task<IActionResult> Edit(int id, [Bind("ownerId,ownerName,ownerEmail,ownerNumber")] Owner owner)
         {
-            if (id != manufacturer.ManId)
+            if (id != owner.ownerId)
             {
                 return NotFound();
             }
@@ -95,12 +97,12 @@ namespace Kias_Kar_Kompany.Controllers
             {
                 try
                 {
-                    _context.Update(manufacturer);
+                    _context.Update(owner);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ManufacturerExists(manufacturer.ManId))
+                    if (!OwnerExists(owner.ownerId))
                     {
                         return NotFound();
                     }
@@ -111,10 +113,10 @@ namespace Kias_Kar_Kompany.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(manufacturer);
+            return View(owner);
         }
 
-        // GET: Manufacturer/Delete/5
+        // GET: Owner/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -122,35 +124,38 @@ namespace Kias_Kar_Kompany.Controllers
                 return NotFound();
             }
 
-            var manufacturer = await _context.Manufacturer
-                .FirstOrDefaultAsync(m => m.ManId == id);
-            if (manufacturer == null)
+            var owner = await _context.Owner
+                .FirstOrDefaultAsync(m => m.ownerId == id);
+            if (owner == null)
             {
                 return NotFound();
             }
 
-            return View(manufacturer);
+            return View(owner);
         }
 
-        // POST: Manufacturer/Delete/5
+        // POST: Owner/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var manufacturer = await _context.Manufacturer.FindAsync(id);
-            if (manufacturer != null)
+            var owner = await _context.Owner.FindAsync(id);
+            if (owner != null)
             {
-                _context.Manufacturer.Remove(manufacturer);
+                _context.Owner.Remove(owner);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ManufacturerExists(int id)
+        private bool OwnerExists(int id)
         {
-            return _context.Manufacturer.Any(e => e.ManId == id);
+            return _context.Owner.Any(e => e.ownerId == id);
         }
     }
 }
+
+
+
 
